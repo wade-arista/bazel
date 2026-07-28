@@ -85,6 +85,15 @@ public class SandboxOptions extends OptionsBase {
   }
 
   @Option(
+      name = "require_linux_sandbox",
+      defaultValue = "false",
+      documentationCategory = OptionDocumentationCategory.EXECUTION_STRATEGY,
+      effectTags = {OptionEffectTag.EXECUTION},
+      help =
+          "Fail command initialization when linux-sandbox is not supported on the local system.")
+  public boolean requireLinuxSandbox;
+
+  @Option(
       name = "sandbox_debug",
       defaultValue = "false",
       documentationCategory = OptionDocumentationCategory.LOGGING,

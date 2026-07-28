@@ -275,6 +275,9 @@ public final class SandboxModule extends BlazeModule {
 
     boolean processWrapperSupported = ProcessWrapperSandboxedSpawnRunner.isSupported(cmdEnv);
     boolean linuxSandboxSupported = LinuxSandboxedSpawnRunner.isSupported(cmdEnv);
+    if (options.requireLinuxSandbox && !linuxSandboxSupported) {
+      throw new IOException("linux-sandbox is required but not supported on the local system");
+    }
     boolean darwinSandboxSupported = DarwinSandboxedSpawnRunner.isSupported(cmdEnv);
 
     ExecutionOptions executionOptions =

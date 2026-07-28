@@ -1239,6 +1239,18 @@ function test_bad_state_linux_sandboxing() {
     || fail "Expected build to succeed"
 }
 
+function test_require_linux_sandbox() {
+  bazel build --local_termination_grace_seconds=-1 \
+    || fail "Expected build to fall back when linux-sandbox is unsupported"
+
+  bazel build \
+    --local_termination_grace_seconds=-1 \
+    --require_linux_sandbox >"${TEST_log}" 2>&1 \
+    && fail "Expected build to fail when required linux-sandbox is unsupported"
+  expect_log \
+    "Failed to initialize sandbox: linux-sandbox is required but not supported"
+}
+
 function is_bazel() {
   [ $TEST_WORKSPACE == "_main" ]
 }
